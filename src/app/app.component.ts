@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Pokemon } from '../models/pokemon.model';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,13 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'pokemon-list';
-  location = 'https://img.pokemondb.net/artwork/avif/venusaur.avif'
-  pokemonList = [
+  pokemonList: Pokemon[] = [
     { name: 'bulbasaur', type: 'grass', type2: 'poison' },
     { name: 'squirtle', type: 'water' },
-    { name: 'charmander', type: 'fire' },
+    { name: 'charmander', type: 'fire' }
   ];
 
+  getPokemonImage(pokemon: Pokemon) {
+    return `https://img.pokemondb.net/artwork/avif/${pokemon.name.toLowerCase()}.avif`
+  }
 }

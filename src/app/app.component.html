@@ -1,7 +1,22 @@
 <h1>{{ title }}</h1>
 
-@for(pokemon of pokemonList; track pokemon.name) {
-<p>{{pokemon.name}}{{pokemon.type}}</p>
-}
-
-<img [src]="location" alt="">
+<table class="table">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Type</td>
+      <td>Type 2</td>
+      <td>Image</td>
+    </tr>
+  </thead>
+  <tbody>
+    @for(pokemon of pokemonList; track pokemon.name) {
+      <tr>
+        <td><p [class.fire]="pokemon.type === 'fire'">{{ pokemon.name }}</p></td>
+        <td>{{ pokemon.type }}</td>
+        <td>{{ pokemon.type2 }}</td>
+        <td><img [src]="getPokemonImage(pokemon)" alt="My Pokemon image"></td>
+      </tr>
+      }
+  </tbody>
+</table>
