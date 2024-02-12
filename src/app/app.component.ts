@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Pokemon } from '../models/pokemon.model';
 import { DatePipe } from '@angular/common';
 import { AvailabilityPipe } from '../pipes/availability.pipe';
 import { LoadingComponent } from './loading/loading.component';
 import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.component';
+import { PokemonService } from './services/pokemon.service';
+import { APP_TITLE } from './app.config';
 
 @Component({
   selector: 'app-root',
@@ -14,19 +16,14 @@ import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.componen
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  title = 'Pokémon List';
   today = new Date();
   pokemonList: Pokemon[] = [];
   selectedPokemon: Pokemon | undefined
+
+  constructor(private pokemonService: PokemonService, @Inject(APP_TITLE) public title: string) {}
   
   ngOnInit(): void {
-    setTimeout(() => {
-      this.pokemonList = [
-        { name: 'bulbasaur', type: 'grass', type2: 'poison' },
-        { name: 'squirtle', type: 'water' },
-        { name: 'charmander', type: 'fire' }
-      ]
-    }, 1000);
+    this.pokemonService.getAll().subscribe(data => this.pokemonList = data);
   }
 
   getPokemonImage(pokemon: Pokemon) {
