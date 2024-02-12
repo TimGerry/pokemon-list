@@ -1,0 +1,7 @@
+<h1>{{ title }}</h1>
+
+@for(pokemon of pokemonList; track pokemon.name) {
+<p>{{pokemon.name}}{{pokemon.type}}</p>
+}
+
+<img [src]="location" alt="">
