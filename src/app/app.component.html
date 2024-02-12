@@ -1,4 +1,4 @@
-<h1>{{ title }}</h1>
+<h1>{{ title }} - {{ today | date : 'short'}}</h1>
 
 <table class="table">
   <thead>
@@ -12,9 +12,9 @@
   <tbody>
     @for(pokemon of pokemonList; track pokemon.name) {
       <tr>
-        <td><p [class.fire]="pokemon.type === 'fire'">{{ pokemon.name }}</p></td>
+        <td><p [class.fire]= "pokemon.type2 === 'fire'">{{ pokemon.name }}</p></td>
         <td>{{ pokemon.type }}</td>
-        <td>{{ pokemon.type2 }}</td>
+        <td>{{ pokemon.type2 | availability }}</td>
         <td><img [src]="getPokemonImage(pokemon)" alt="My Pokemon image"></td>
       </tr>
       }
