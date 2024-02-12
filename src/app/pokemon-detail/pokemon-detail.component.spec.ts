@@ -20,4 +20,6 @@ describe('PokemonDetailComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  
 });
