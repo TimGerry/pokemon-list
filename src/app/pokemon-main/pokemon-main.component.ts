@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../../models/pokemon.model';
 import { AvailabilityPipe } from '../../pipes/availability.pipe';
@@ -6,22 +6,21 @@ import { LoadingComponent } from '../loading/loading.component';
 import { PokemonDetailComponent } from '../pokemon-detail/pokemon-detail.component';
 import { PokemonService } from '../services/pokemon.service';
 import { RouterModule } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon-main',
   standalone: true,
-  imports: [ AvailabilityPipe, LoadingComponent, PokemonDetailComponent, CommonModule, RouterModule],
+  imports: [ AvailabilityPipe, LoadingComponent, PokemonDetailComponent, CommonModule, RouterModule, AsyncPipe],
   templateUrl: './pokemon-main.component.html',
   styleUrl: './pokemon-main.component.scss'
 })
-export class PokemonMainComponent implements OnInit {
-  pokemonList: Pokemon[] = [];
-  selectedPokemon: Pokemon | undefined
+export class PokemonMainComponent {
+  pokemon$: Observable<Pokemon[]>;
+  selectedPokemon: Pokemon | undefined;
 
-  constructor(private pokemonService: PokemonService) {}
-
-  ngOnInit(): void {
-    this.pokemonService.getAll().subscribe(data => this.pokemonList = data);
+  constructor(private pokemonService: PokemonService) {
+    this.pokemon$ = this.pokemonService.pokemon$;
   }
 
   getPokemonImage(pokemon: Pokemon) {
@@ -30,14 +29,5 @@ export class PokemonMainComponent implements OnInit {
 
   selectPokemon(pokemonToSelect: Pokemon) {
     this.selectedPokemon = pokemonToSelect;
-  }
-
-  increaseLikes(pokemonToLike: Pokemon) {
-    if (!pokemonToLike.likeCount) {
-      pokemonToLike.likeCount = 1;
-      return;
-    }
-
-    pokemonToLike.likeCount += 1;
   }
 }
