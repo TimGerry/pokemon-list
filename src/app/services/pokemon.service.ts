@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Pokemon } from '../../models/pokemon.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PokemonService {
   pokemonList: Pokemon[] = [
@@ -12,9 +12,11 @@ export class PokemonService {
     { name: 'charmander', type: 'fire' }
   ]
 
-  constructor() { }
-
   getAll(): Observable<Pokemon[]> {
     return of(this.pokemonList);
+  }
+
+  get(name: string): Observable<Pokemon | undefined> {
+    return of(this.pokemonList.find(p => p.name === name))
   }
 }

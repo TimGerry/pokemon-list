@@ -1,5 +1,5 @@
 import { ApplicationConfig, InjectionToken } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -10,5 +10,5 @@ export const APP_TITLE = new InjectionToken<string>('App title', {
 })
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration()]
+  providers: [provideRouter(routes, withComponentInputBinding()), provideClientHydration()]
 };
