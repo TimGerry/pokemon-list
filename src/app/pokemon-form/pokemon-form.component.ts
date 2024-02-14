@@ -16,14 +16,14 @@ export class PokemonFormComponent implements OnInit {
 
   constructor(private pokemonService: PokemonService, private fb: NonNullableFormBuilder) {
     this.pokemonForm = fb.group<PokemonForm>({
-      name: new FormControl('mudkip', { nonNullable: true, validators: [Validators.required, Validators.minLength(3)], asyncValidators: pokemonExistsValidator() }),
-      type: new FormControl('', { nonNullable: true, validators: [Validators.required, validTypeValidator()]}),
-      type2: new FormControl('', { nonNullable: true }),
-      attack: new FormControl('', { nonNullable: true, validators: Validators.required})
+      name: fb.control('mudkip', [Validators.required, Validators.minLength(3)], pokemonExistsValidator()),
+      type: fb.control('', [Validators.required, validTypeValidator()]),
+      type2: fb.control(''),
+      attack: fb.control('', Validators.required)
     }, {
       validators: [uniqueTypeValidator()]
     })
-   }
+  }
 
   ngOnInit(): void {
     this.pokemonForm.get('name')?.valueChanges
