@@ -1,0 +1,28 @@
+<form [formGroup]="pokemonForm" (ngSubmit)="save()">
+  <label for="pokemonNameInput">Name:</label>
+  <input type="text" id="pokemonNameInput" formControlName="name">
+  <label for="pokemonTypeInput">Type:</label>
+  <input type="text" id="pokemonTypeInput" formControlName="type">
+  <label for="pokemonType2Input">Type2:</label>
+  <input type="text" id="pokemonType2Input" formControlName="type2">
+  <button [disabled]="!pokemonForm.valid">Save!</button>
+
+  @if(pokemonForm.controls.name.touched && pokemonForm.controls.name.errors?.['required']) {
+    <p>Pokemon name is required</p>
+  }
+  @if(pokemonForm.controls.name.touched && pokemonForm.controls.name.errors?.['minlength']) {
+    <p>Pokemon name must be a minimum of 3 characters</p>
+  }
+  @if(pokemonForm.controls.name.touched && pokemonForm.controls.name.errors?.['invalidPokemon']) {
+    <p>Pokemon with name '{{pokemonForm.controls.name.getError('invalidPokemon')}}' does not exist</p>
+  }
+  @if(pokemonForm.controls.type.touched && pokemonForm.controls.type.errors?.['required']) {
+    <p>Pokemon type is required</p>
+  }
+  @if(pokemonForm.controls.type.touched && pokemonForm.controls.type.errors?.['invalidType']) {
+    <p>Pokemon type '{{ pokemonForm.controls.type.getError('invalidType') }}' is invalid</p>
+  }  
+  @if(pokemonForm.controls.type.touched && pokemonForm.controls.type2.touched && pokemonForm.errors?.['duplicateType']) {
+    <p>Primary type and secondary type should be different: '{{ pokemonForm.getError('duplicateType') }}'</p>
+  }
+</form>

@@ -33,7 +33,8 @@ export class PokemonService {
     pokemonToLike.likeCount += 1;
   }
 
-  getPokemonImage(pokemon: Pokemon) {
-    return `https://img.pokemondb.net/artwork/avif/${pokemon.name.toLowerCase()}.avif`;
+  add(pokemonToAdd: Pokemon) {
+    this.pokemonList.push(pokemonToAdd);
+    this.subject.next(this.pokemonList);
   }
 }

@@ -1,0 +1,24 @@
+<table class="table">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Type</td>
+      <td>Type 2</td>
+      <td>Image</td>
+      <td>Likes</td>
+    </tr>
+  </thead>
+  <tbody>
+    @for(pokemon of (pokemon$|async); track pokemon.name) {
+    <tr (click)="selectPokemon(pokemon)" [routerLink]="pokemon.name">
+      <td>
+        <p [class.fire]="pokemon.type2 === 'fire'">{{ pokemon.name }}</p>
+      </td>
+      <td>{{ pokemon.type }}</td>
+      <td>{{ pokemon.type2 | availability }}</td>
+      <td><img [src]="getPokemonImage(pokemon)" alt="My Pokemon image"></td>
+      <td>{{ pokemon.likeCount }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
