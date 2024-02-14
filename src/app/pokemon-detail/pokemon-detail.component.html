@@ -3,6 +3,7 @@
 @if(pokemon) {
   <h2>{{ pokemon.name }} details</h2>
   <button (click)="likePokemon()">Like this pokémon</button>
+  <button routerLink="training">Start training</button>
   <img [src]="getPokemonImage(pokemon)" [alt]="pokemon.name">
 }
 @else{

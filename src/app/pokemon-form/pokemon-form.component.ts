@@ -18,7 +18,8 @@ export class PokemonFormComponent {
   pokemonForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)], pokemonExistsValidator()),
     type: new FormControl('', [Validators.required, validTypeValidator()]),
-    type2: new FormControl('')
+    type2: new FormControl(''),
+    attack: new FormControl('', Validators.required)
   },{
     validators: [uniqueTypeValidator()]
   });

@@ -5,6 +5,8 @@
   <input type="text" id="pokemonTypeInput" formControlName="type">
   <label for="pokemonType2Input">Type2:</label>
   <input type="text" id="pokemonType2Input" formControlName="type2">
+  <label for="pokemonAttackInput">Attack:</label>
+  <input type="text" id="pokemonAttackInput" formControlName="attack">
   <button [disabled]="!pokemonForm.valid">Save!</button>
 
   @if(pokemonForm.controls.name.touched && pokemonForm.controls.name.errors?.['required']) {
@@ -24,5 +26,8 @@
   }  
   @if(pokemonForm.controls.type.touched && pokemonForm.controls.type2.touched && pokemonForm.errors?.['duplicateType']) {
     <p>Primary type and secondary type should be different: '{{ pokemonForm.getError('duplicateType') }}'</p>
+  }
+  @if(pokemonForm.controls.attack.touched && pokemonForm.controls.attack.errors?.['required']) {
+    <p>Attack is required</p>
   }
 </form>

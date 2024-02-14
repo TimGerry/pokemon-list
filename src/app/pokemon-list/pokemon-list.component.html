@@ -4,6 +4,8 @@
       <td>Name</td>
       <td>Type</td>
       <td>Type 2</td>
+      <td>Attack</td>
+      <td>Training count</td>
       <td>Image</td>
       <td>Likes</td>
     </tr>
@@ -16,6 +18,8 @@
       </td>
       <td>{{ pokemon.type }}</td>
       <td>{{ pokemon.type2 | availability }}</td>
+      <td>{{ pokemon.attack }}</td>
+      <td>{{ pokemon.trainingCount }}</td>
       <td><img [src]="getPokemonImage(pokemon)" alt="My Pokemon image"></td>
       <td>{{ pokemon.likeCount }}</td>
     </tr>

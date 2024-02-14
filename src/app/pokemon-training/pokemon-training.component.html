@@ -1,0 +1,9 @@
+<a routerLink="..">Go back to main page</a>
+
+@if(pokemon) {
+<h2>Pokemon training for {{pokemon.name}}</h2>
+<h2>Training count: {{pokemon.trainingCount}}</h2>
+}
+@else{
+<div>pokemon does not exist</div>
+}

@@ -7,9 +7,9 @@ import { Pokemon } from '../../models/pokemon.model';
 })
 export class PokemonService {
   private pokemonList: Pokemon[] = [
-    { name: 'bulbasaur', type: 'grass', type2: 'poison' },
-    { name: 'squirtle', type: 'water' },
-    { name: 'charmander', type: 'fire' }
+    { name: 'bulbasaur', type: 'grass', type2: 'poison', attack: 'razor leaf' },
+    { name: 'squirtle', type: 'water', attack: 'water gun' },
+    { name: 'charmander', type: 'fire', attack: 'ember' }
   ];
   private subject = new BehaviorSubject<Pokemon[]>(this.pokemonList);
   public pokemon$ = this.subject.asObservable();
@@ -24,13 +24,28 @@ export class PokemonService {
     this.subject.next(this.pokemonList);
   }
 
-  increaseLikes(pokemonToLike: Pokemon) {
+  private increaseLikes(pokemonToLike: Pokemon) {
     if (!pokemonToLike.likeCount) {
       pokemonToLike.likeCount = 1;
       return;
     }
 
     pokemonToLike.likeCount += 1;
+  }
+
+  train(name: string) {
+    this.pokemonList.filter(p => p.name === name)
+    .forEach(p => this.increaseTraining(p));
+    this.subject.next(this.pokemonList);
+  }
+
+  private increaseTraining(pokemonToLike: Pokemon) {
+    if (!pokemonToLike.trainingCount) {
+      pokemonToLike.trainingCount = 1;
+      return;
+    }
+
+    pokemonToLike.trainingCount += 1;
   }
 
   add(pokemonToAdd: Pokemon) {
