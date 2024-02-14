@@ -6,11 +6,12 @@ import { CommonModule, AsyncPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AvailabilityPipe } from '../../pipes/availability.pipe';
 import { PokemonDetailComponent } from '../pokemon-detail/pokemon-detail.component';
+import { HoverableDirective } from '../../directives/hoverable.directive';
 
 @Component({
   selector: 'app-pokemon-list',
   standalone: true,
-  imports: [AvailabilityPipe, PokemonDetailComponent, CommonModule, RouterModule, AsyncPipe],
+  imports: [AvailabilityPipe, PokemonDetailComponent, CommonModule, RouterModule, AsyncPipe, HoverableDirective],
   templateUrl: './pokemon-list.component.html',
   styleUrl: './pokemon-list.component.scss'
 })

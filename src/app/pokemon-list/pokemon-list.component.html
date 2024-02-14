@@ -13,7 +13,7 @@
   <tbody>
     @for(pokemon of (pokemon$|async); track pokemon.name) {
     <tr (click)="selectPokemon(pokemon)" [routerLink]="pokemon.name">
-      <td>
+      <td class="nameTile" appHoverable="pink">
         <p [class.fire]="pokemon.type2 === 'fire'">{{ pokemon.name }}</p>
       </td>
       <td>{{ pokemon.type }}</td>
