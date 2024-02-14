@@ -35,4 +35,4 @@ Complete your 'destroyable' observable on the destruction of your component.
 
 ## part 3
 
-An AsyncPipe will automatically close your subscription, let's try and use that intead!
+An AsyncPipe will automatically close your subscription. Let's try to use it in the list component!
