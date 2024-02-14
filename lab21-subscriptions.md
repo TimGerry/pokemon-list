@@ -29,8 +29,8 @@ myObservable.pipe(
 ).subscribe(...)
 ```
 
-Destroyable is another observable, the 'takeUntil' operator will make sure your subscription
-will be ended if the observable 'destroyable' is completed.
+Destroyable is a subject, the 'takeUntil' operator will make sure your subscription
+will be ended if the subject 'destroyable' is completed.
 Complete your 'destroyable' observable on the destruction of your component.
 
 ## part 3
