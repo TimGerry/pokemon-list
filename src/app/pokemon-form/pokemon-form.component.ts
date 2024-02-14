@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { PokemonService } from '../services/pokemon.service';
 import { Pokemon } from '../../models/pokemon.model';
-import { delay, of } from 'rxjs';
+import { debounceTime, delay, noop, of } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon-form',
@@ -11,23 +11,36 @@ import { delay, of } from 'rxjs';
   templateUrl: './pokemon-form.component.html',
   styleUrl: './pokemon-form.component.scss'
 })
-export class PokemonFormComponent {
+export class PokemonFormComponent implements OnInit {
+  pokemonForm!: FormGroup<PokemonForm>;
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(private pokemonService: PokemonService, private fb: NonNullableFormBuilder) {
+    this.pokemonForm = fb.group<PokemonForm>({
+      name: new FormControl('mudkip', { nonNullable: true, validators: [Validators.required, Validators.minLength(3)], asyncValidators: pokemonExistsValidator() }),
+      type: new FormControl('', { nonNullable: true, validators: [Validators.required, validTypeValidator()]}),
+      type2: new FormControl('', { nonNullable: true }),
+      attack: new FormControl('', { nonNullable: true, validators: Validators.required})
+    }, {
+      validators: [uniqueTypeValidator()]
+    })
+   }
 
-  pokemonForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)], pokemonExistsValidator()),
-    type: new FormControl('', [Validators.required, validTypeValidator()]),
-    type2: new FormControl(''),
-    attack: new FormControl('', Validators.required)
-  },{
-    validators: [uniqueTypeValidator()]
-  });
+  ngOnInit(): void {
+    this.pokemonForm.get('name')?.valueChanges
+      .pipe(debounceTime(200))
+      .subscribe(console.log);
+    this.pokemonForm.valueChanges.subscribe(console.log);
+  }
 
   save() {
     this.pokemonService.add(this.pokemonForm.value as Pokemon);
+    this.pokemonForm.reset();
   }
 }
+
+export type PokemonForm = {
+  [P in keyof Pokemon]: FormControl<Pokemon[P]>;
+};
 
 const VALID_POKEMON_TYPES = ['fire', 'water', 'grass', 'normal', 'fighting', 'psychic', 'poison'];
 export function validTypeValidator(): ValidatorFn {

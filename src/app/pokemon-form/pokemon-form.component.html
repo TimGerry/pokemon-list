@@ -24,7 +24,7 @@
   @if(pokemonForm.controls.type.touched && pokemonForm.controls.type.errors?.['invalidType']) {
     <p>Pokemon type '{{ pokemonForm.controls.type.getError('invalidType') }}' is invalid</p>
   }  
-  @if(pokemonForm.controls.type.touched && pokemonForm.controls.type2.touched && pokemonForm.errors?.['duplicateType']) {
+  @if(pokemonForm.controls.type.touched && pokemonForm.controls.type2?.touched && pokemonForm.errors?.['duplicateType']) {
     <p>Primary type and secondary type should be different: '{{ pokemonForm.getError('duplicateType') }}'</p>
   }
   @if(pokemonForm.controls.attack.touched && pokemonForm.controls.attack.errors?.['required']) {
